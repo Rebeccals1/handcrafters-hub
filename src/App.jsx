@@ -1,37 +1,51 @@
-// src/App.jsx
-import './index.css'
-import { useState, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { supabase } from './utils/client'
-import Navbar from './components/navbar'
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { supabase } from './utils/client';
+import Navbar from './components/Navbar';
+import { ensureUserProfile } from './utils/ensureUserProfile';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
-  const [session, setSession] = useState(null)
-  const navigate = useNavigate()
+  const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Check initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+      if (session?.user) {
+        setSession(session);
+        setUser(session.user);
+        ensureUserProfile(session.user);
+      }
+    });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      if (!session) navigate('/login')
-    })
+    // Listen for login/logout
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setSession(session);
+        setUser(session.user);
+        ensureUserProfile(session.user);
+      } else {
+        setSession(null);
+        setUser(null);
+        navigate('/login');
+      }
+    });
 
-    return () => subscription.unsubscribe()
-  }, [navigate])
-
-  if (!session) {
-    return null // Wait until login page handles rendering
-  }
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   return (
-    <div>
-      <Navbar user={session.user} />
-      <Outlet context={{ userId: session.user.id }} />
-    </div>
-  )
+    <>
+      <Navbar user={user} />
+      <main className="container">
+        <Outlet context={{ userId: user?.id }} />
+      </main>
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
+  );
 }

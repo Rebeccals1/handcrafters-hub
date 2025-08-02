@@ -1,6 +1,161 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+/* ===== Root Variables for Theming ===== */
+:root {
+  --primary: #b97c4a;         /* Clay / wood */
+  --secondary: #f6e7d8;       /* Light paper background */
+  --accent: #e4bfa7;          /* Pastel blush */
+  --text-dark: #4a3f35;
+  --text-light: #fff9f5;
+  --highlight: #ffe8cc;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --font-header: 'Pacifico', cursive;
+  --font-body: 'Quicksand', sans-serif;
+}
+
+/* ===== Global ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--secondary);
+  color: var(--text-dark);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-header);
+  color: var(--primary);
+  margin: 0.5rem 0;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px var(--card-shadow);
+}
+
+.navbar a {
+  color: var(--text-light);
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+/* ===== Container Layout ===== */
+.container {
+  max-width: 900px;
+  margin: auto;
   padding: 2rem;
+}
+
+/* ===== Post Card ===== */
+.post-card {
+  background-color: var(--highlight);
+  border: 1px solid #d3b7a3;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 2px 2px 8px var(--card-shadow);
+  transition: transform 0.2s ease;
+}
+
+.post-card:hover {
+  transform: scale(1.01);
+}
+
+.post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: #7a6a5f;
+  margin-bottom: 1rem;
+}
+
+.post-content {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 1rem;
+  object-fit: cover;
+}
+
+/* ===== Buttons ===== */
+.button {
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #9c643a;
+}
+
+/* ===== Forms ===== */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+/* ===== Comment Section ===== */
+.comment-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #d3b7a3;
+}
+
+.comment {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #fffdfb;
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+}
+
+/* ===== Footer ===== */
+.footer {
   text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #8d7d6b;
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { supabase } from '../utils/client';
+import { supabase } from '../../utils/client';
 
 export default function CommentForm({ postId, onCommentAdded, userId }) {
   const [content, setContent] = useState('');
@@ -26,7 +26,7 @@ export default function CommentForm({ postId, onCommentAdded, userId }) {
     setLoading(false);
 
     if (error) {
-      alert('Error posting comment: ' + error.message);
+      toast.error(`Error: ${error.message}`);
     } else {
       onCommentAdded(data); // Optimistically update the UI
       setContent('');

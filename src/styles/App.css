@@ -1,0 +1,115 @@
+/* ===== Root Variables for Theming ===== */
+:root {
+  /* Main Backgrounds & Text */
+  --primary: #ffffff;
+  --secondary: #E9ECEF;
+  --accent: #3B82F6;
+  --accent-dark: #1E40AF;
+
+  /* Text & Contrast */
+  --text-dark: #343A40;
+  --text-accent: #1E40AF;
+  --text-light: #F8F9FA;
+
+  /* Highlight & Interaction */
+  --highlight: #6C757D;
+  --highlight-light: #DCE4EF;
+
+  /* Shadows & UI */
+  --card-shadow: rgba(52, 58, 64, 0.1);
+  --radius: 12px;
+  --radius-small: 8px;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+
+  /* Typography */
+  --font-header: 'Quicksand', sans-serif;
+  --font-body: 'Quicksand', sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.6;
+}
+
+/* ===== Global ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--secondary);
+  color: var(--text-dark);
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3 {
+  font-family: var(--font-header);
+  color: var(--text-accent);
+  margin: var(--spacing-xs) 0;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+a:hover {
+  color: var(--highlight);
+  text-decoration: underline;
+}
+
+/* ===== Buttons ===== */
+.button, button {
+  background-color: var(--accent);
+  color: var(--text-light);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.25s;
+  font-weight: bold;
+  font-family: inherit;
+}
+.button:hover, button:hover {
+  background-color: var(--accent-dark);
+}
+.button:focus, button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+
+/* ===== Forms ===== */
+.form-group {
+  margin-bottom: var(--spacing-sm);
+}
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+input[type="text"],
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-small);
+  border: 1px solid var(--highlight-light);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: var(--spacing-sm);
+  font-size: 0.9rem;
+  color: var(--highlight);
+}

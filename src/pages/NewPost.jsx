@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/client";
 import { toast } from "react-toastify";
+import '../styles/pageStyles.css'
 
 export default function NewPost() {
   const [title, setTitle] = useState("");

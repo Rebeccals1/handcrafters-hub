@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/client';
-import './style.css';
+import { supabase } from '../../utils/client';
+import '../../styles/componentStyles.css';
 
 export default function Navbar({ user }) {
   const navigate = useNavigate();
@@ -17,18 +17,24 @@ export default function Navbar({ user }) {
 
   return (
     <nav className="navbar">
+
       <div className="nav-left">
         <Link to="/">Home</Link>
         <Link to="/new">New Post +</Link>
       </div>
+
       <div className="nav-right">
         {user ? (
-          <>
-            <span className="user-email">{user.email}</span>
+          <div className="user-info">
+            <img
+              src={user.user_metadata?.avatar_url || '/default-avatar.png'}
+              alt="User Avatar"
+              className="user-avatar"
+            />
             <button onClick={handleLogout} className="logout-button">
               Sign out
             </button>
-          </>
+          </div>
         ) : (
           <Link to="/login">Login</Link>
         )}

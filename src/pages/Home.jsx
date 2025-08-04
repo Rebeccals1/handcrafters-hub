@@ -1,53 +1,100 @@
-// Home.jsx
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/client";
-import SortFilterControls from "../components/home/SortFilterControls";
-import PostFeed from "../components/home/PostFeed";
+import SortBar from "../components/shared/SortBar";
+import SearchBar from "../components/shared/SearchBar";
+import PostFeed from "../components/posts/PostFeed";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [sortBy, setSortBy] = useState("newest");
+  const [allCategories, setAllCategories] = useState([]);
+  const [displayedCategories, setDisplayedCategories] = useState([]);
 
+  const [sortBy, setSortBy] = useState("newest");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  // Step 1: Load all categories from Supabase once
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await supabase.from("post_categories").select("*");
-      if (!error) setCategories(data);
+      const { data, error } = await supabase
+        .from("post_categories")
+        .select(`
+          id,
+          name,
+          post_category_contests (
+            title,
+            description,
+            start_date,
+            end_date
+          ),
+          posts (
+            id,
+            title,
+            content,
+            image_url,
+            created_at,
+            upvotes,
+            profiles (
+              name,
+              avatar_url
+            )
+          )
+        `);
+
+      if (!error && data) {
+        setAllCategories(data);
+        setDisplayedCategories(data); // show everything initially
+      }
     };
+
     fetchCategories();
   }, []);
 
+  // Step 2: Filter posts based on search + category
   useEffect(() => {
-    const loadPosts = async () => {
-      const orderField = sortBy === "popular" ? "upvotes" : "created_at";
+    const filtered = allCategories
+      .map((category) => {
+        const originalPosts = Array.isArray(category.posts) ? [...category.posts] : [];
 
-      let query = supabase
-        .from("posts")
-        .select("*, profiles(name, avatar_url), post_categories(name)")
-        .order(orderField, { ascending: false });
+        const matchingPosts = searchQuery
+          ? originalPosts.filter((post) =>
+              post.title.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+          : originalPosts;
 
-      if (selectedCategory) {
-        query = query.eq("category_id", selectedCategory);
-      }
+        return { ...category, posts: matchingPosts };
+      })
+      .filter((category) => {
+        const hasPosts = category.posts.length > 0;
+        const matchesSelectedCategory =
+          selectedCategory === "" || category.name === selectedCategory;
+        return hasPosts && matchesSelectedCategory;
+      });
 
-      const { data, error } = await query;
-      if (!error) setPosts(data);
-    };
-
-    loadPosts();
-  }, [sortBy, selectedCategory]);
+    setDisplayedCategories(filtered);
+  }, [searchQuery, selectedCategory, allCategories]);
 
   return (
-    <section className="home-page">
-      <SortFilterControls
+    <div className="home-page p-4 space-y-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-4">
+        <SearchBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+        <SortBar
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          categories={allCategories} 
+        />
+      </div>
+
+      <PostFeed
         sortBy={sortBy}
-        setSortBy={setSortBy}
-        categories={categories}
+        searchQuery={searchQuery}
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        categories={displayedCategories} 
       />
-      <PostFeed posts={posts} />
-    </section>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 // 🔧 components/ProfileForm.jsx
 import { useEffect, useState } from 'react';
-import { supabase } from '../utils/client';
-import { handleAvatarUpload } from '../utils/handleAvatarUpload';
+import { supabase } from '../../utils/client';
+import { handleAvatarUpload } from '../../utils/handleAvatarUpload';
 
 export default function ProfileForm({ userId }) {
   const [name, setName] = useState('');

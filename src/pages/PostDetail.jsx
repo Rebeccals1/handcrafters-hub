@@ -2,8 +2,8 @@
 import { useOutletContext, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/client';
-import CommentForm from '../components/CommentForm';
-import CommentList from '../components/CommentList';
+import CommentForm from '../components/comments/CommentForm';
+import CommentList from '../components/comments/CommentList';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -1,43 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { supabase } from './utils/client';
-import Navbar from './components/Navbar';
-import { ensureUserProfile } from './utils/ensureUserProfile';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Navbar from "./components/layout/NavBar";
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import useAuthSession from "./hooks/useAuthSession";
+import "react-toastify/dist/ReactToastify.css";
+import './styles/app.css'
+import Footer from './components/layout/Footer'
 
 export default function App() {
-  const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Check initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        setSession(session);
-        setUser(session.user);
-        ensureUserProfile(session.user);
-      }
-    });
-
-    // Listen for login/logout
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setSession(session);
-        setUser(session.user);
-        ensureUserProfile(session.user);
-      } else {
-        setSession(null);
-        setUser(null);
-        navigate('/login');
-      }
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [navigate]);
+  const { user } = useAuthSession();
 
   return (
     <>
@@ -45,6 +15,7 @@ export default function App() {
       <main className="container">
         <Outlet context={{ userId: user?.id }} />
       </main>
+      <Footer />
       <ToastContainer position="top-right" autoClose={3000} />
     </>
   );

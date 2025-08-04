@@ -2,6 +2,7 @@ import { useParams, useNavigate, useOutletContext } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../utils/client"
 
+
 const EditPost = () => {
   const { id } = useParams()
   const navigate = useNavigate()

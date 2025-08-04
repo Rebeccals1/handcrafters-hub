@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+zipfile.zip
+src.zip
+public.zip

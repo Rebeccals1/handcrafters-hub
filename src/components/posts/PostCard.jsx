@@ -15,28 +15,30 @@ export default function PostCard({ post }) {
 
   return (
     <div className="post-card">
+      
       <div className="post-meta">
         <p className="post-time">
           Posted {formatDistanceToNow(new Date(created_at), { addSuffix: true })}
         </p>
-        <p className="post-category">{post.post_categories?.name || 'Uncategorized'}</p>
       </div>
 
       <Link to={`/post/${id}`} className="post-title-link">
-        <h3 className="post-title">{title}</h3>
+      <div className="post-author-wrapper">
+        <span className="post-title-block">
+          <img
+            src={avatar_url || "/default-avatar.png"}
+            alt={name}
+            title={name}
+            className="avatar"
+          />
+          <h3 className="post-title">{title}</h3>
+        </span>
+        <p className="post-upvotes">{upvotes} upvotes</p>
+      </div>
       </Link>
 
-      <p className="post-upvotes">{upvotes} upvotes</p>
-
-      <div className="post-author">
-        <img
-          src={avatar_url || "/default-avatar.png"}
-          alt={name}
-          title={name}
-          className="avatar"
-        />
-        <span>{name}</span>
-      </div>
+      
+      
     </div>
   );
 }

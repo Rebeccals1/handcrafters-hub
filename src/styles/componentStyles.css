@@ -1,5 +1,5 @@
 /* ===== Navbar ===== */
-.navbar {
+.navbar-wrapper {
   background-color: var(--primary);
   color: var(--text-dark);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -10,7 +10,15 @@
   z-index: 10;
 }
 
-.navbar a {
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 780px;
+  margin: 0 auto;
+}
+
+.navbar-wrapper a {
   color: var(--text-dark);
   margin-left: var(--spacing-sm);
   font-weight: bold;
@@ -61,7 +69,7 @@
   background-color: var(--primary);
   border: 1px solid var(--highlight-light);
   border-radius: var(--radius);
-  padding: 1.5rem; /* Still a good size, no need for a var here */
+  padding: 1.5rem; 
   margin: var(--spacing-sm) 0;
   box-shadow: 0 1px 4px var(--card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -108,32 +116,116 @@
   align-items: center; 
 }
 
-/* ===== Comment Section ===== */
+/* ===== Comment Form ===== */
+.comment-form {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+  background-color: #fff;
+}
+
+.comment-form button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-form button:hover {
+  background-color: #1d4ed8;
+}
+
+/* ===== Comment List and Items ===== */
 .comment-section {
-  margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  border-top: 1px solid var(--highlight-light);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .comment {
-  margin-bottom: var(--spacing-sm);
-  padding: 0.75rem;
-  background-color: var(--primary);
-  border-left: 4px solid var(--highlight-light);
-  border-radius: var(--radius-small);
+  display: flex;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
 }
 
-/* ===== Comment List ===== */
-.comment-item {
-  border-bottom: 1px solid #ccc;
-  padding: 0.75rem 0;
+.comment .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.comment-body {
+  flex: 1;
 }
 
 .comment-author {
-  display: flex;
-  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
   margin-bottom: 0.25rem;
+  color: #1f2937;
 }
+
+.comment-text {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.comment-timestamp {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+.comment-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.comment-actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.comment-actions button:hover {
+  text-decoration: underline;
+}
+
 
 /* ===== Profile Form ===== */
 .profile-form {
@@ -148,7 +240,7 @@
   background-color: var(--primary);
   border: 1px solid var(--highlight-light);
   border-radius: var(--radius);
-  padding: 1.5rem; /* Still a good size, no need for a var here */
+  padding: 1.5rem;
   margin: var(--spacing-sm) 0;
   box-shadow: 0 1px 4px var(--card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -181,38 +273,50 @@
   color: #444;
 }
 
-/* ===== Sorting / Filtering Controls ===== */
-.sort-bar-wrapper,
-.sort-by-content,
-.sort-category-content {
-  display: flex;
-  margin-right: 50px;
+/* ===== Search Bar ===== */
+.search-bar {
+  padding: 0.5rem;
+  width: 60%;
+  margin-bottom: 20px;
 }
 
-.sort-controls {
+/* ===== Sort Bar Styling ===== */
+.sort-bar-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 2rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
-.sort-controls span {
+.sort-by-content,
+.sort-category-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-by-content label,
+.sort-category-content label {
   font-weight: bold;
-  color: #444;
+  color: var(--text-dark, #333);
 }
 
-.sort-controls button {
-  padding: 0.4rem 0.8rem;
-  background-color: #ddd;
+.sort-by-content select,
+.sort-category-content select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--highlight-light, #ccc);
+  background-color: #fff;
   color: #333;
-  border: none;
-  border-radius: 4px;
   font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
-.sort-controls button.active {
-  background-color: #333;
-  color: #fff;
+.sort-by-content select:focus,
+.sort-category-content select:focus {
+  border-color: var(--highlight, #888);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(136, 136, 136, 0.2);
 }
-

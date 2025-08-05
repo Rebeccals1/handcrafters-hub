@@ -1,8 +1,7 @@
-// src/pages/LoginPage.jsx
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { supabase } from '../utils/client';
-import '../styles/pageStyles.css';
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { supabase } from "../utils/client";
+import "../styles/pageStyles.css";
 
 export default function LoginPage() {
   return (
@@ -17,15 +16,20 @@ export default function LoginPage() {
             variables: {
               default: {
                 colors: {
-                  brand: '#4B5563',
-                  brandAccent: '#9CA3AF'
-                }
-              }
-            }
+                  brand: "#4B5563",
+                  brandAccent: "#9CA3AF",
+                },
+              },
+            },
           }}
-          providers={['google', 'github']}
+          providers={["google", "github"]}
           redirectTo={`${window.location.origin}/`}
         />
+
+        <p className="login-subtext">
+          Don’t have an account?{" "}
+          <a href="/signup" className="login-link">Sign up here</a>
+        </p>
       </div>
     </div>
   );

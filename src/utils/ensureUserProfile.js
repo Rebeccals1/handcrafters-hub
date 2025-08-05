@@ -1,4 +1,3 @@
-// 🔧 utils/ensureUserProfile.js
 import { supabase } from './client.js';
 
 export async function ensureUserProfile(user) {
@@ -15,12 +14,10 @@ export async function ensureUserProfile(user) {
   const avatar_url = user_metadata?.avatar_url || '';
 
   const { error } = await supabase.from('profiles')
-    .upsert({
-      id,
-      email,
-      name,
-      avatar_url
-    }, { onConflict: 'id' });
+    .upsert(
+      { id, email, name, avatar_url },
+      { onConflict: 'id' }
+    );
 
   if (error) {
     console.error('Failed to create/update user profile:', error.message);

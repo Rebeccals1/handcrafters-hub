@@ -5,7 +5,6 @@ import { ensureUserProfile } from "../utils/ensureUserProfile";
 
 export default function useAuthSession() {
   const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,28 +12,28 @@ export default function useAuthSession() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setSession(session);
-        setUser(session.user);
-        ensureUserProfile(session.user);
-      }
-    });
-
-    // Listen for login/logout
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setSession(session);
-        setUser(session.user);
         ensureUserProfile(session.user);
       } else {
         setSession(null);
-        setUser(null);
-        navigate("/login");
+      }
+    });
+
+    // Listen for auth state changes
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setSession(session);
+        ensureUserProfile(session.user);
+        navigate("/"); // Redirect after login
+      } else {
+        setSession(null);
+        navigate("/login"); // Redirect after logout
       }
     });
 
     return () => {
-      authListener.subscription.unsubscribe();
+      listener.subscription.unsubscribe();
     };
   }, [navigate]);
 
-  return { session, user };
+  return { session };
 }

@@ -1,5 +1,4 @@
-// Updated PostDetail.jsx
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useOutletContext, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/client';
 import CommentForm from '../components/comments/CommentForm';
@@ -10,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const PostDetail = () => {
   const { userId } = useOutletContext();
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,10 +66,27 @@ const PostDetail = () => {
       .eq('id', post.id);
 
     if (error) {
-      setVoteCount(voteCount);
+      setVoteCount(voteCount); // revert
       toast.error('Failed to update vote.');
     } else {
       toast.success(`Voted ${direction}!`);
+    }
+  };
+
+  const handleDelete = async () => {
+    const confirmed = confirm('Are you sure you want to delete this post?');
+    if (!confirmed) return;
+
+    const { error } = await supabase
+      .from('posts')
+      .delete()
+      .eq('id', post.id);
+
+    if (error) {
+      toast.error('Failed to delete post.');
+    } else {
+      toast.success('Post deleted.');
+      navigate('/');
     }
   };
 
@@ -97,6 +115,23 @@ const PostDetail = () => {
         <span style={{ margin: '0 1rem' }}>{voteCount} votes</span>
         <button onClick={() => handleVote('down')}>⬇️ Downvote</button>
       </div>
+
+      {post.user_id === userId && (
+        <div className="mt-4 flex gap-4">
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            onClick={() => navigate(`/edit/${post.id}`)}
+          >
+            ✏️ Edit
+          </button>
+          <button
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+            onClick={handleDelete}
+          >
+            🗑️ Delete
+          </button>
+        </div>
+      )}
 
       <CommentForm postId={post.id} onCommentAdded={handleCommentAdded} userId={userId} />
       <CommentList comments={comments} />

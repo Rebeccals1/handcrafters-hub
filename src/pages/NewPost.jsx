@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/client";
 import { toast } from "react-toastify";
-import '../styles/pageStyles.css'
+import '../styles/pageStyles.css';
 
 export default function NewPost() {
   const [title, setTitle] = useState("");
@@ -38,23 +38,34 @@ export default function NewPost() {
     if (imageFile) {
       const fileExt = imageFile.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
-      const { data, error } = await supabase.storage
-        .from("avatars") // Adjust bucket if different
-        .upload(fileName, imageFile);
+      const filePath = `public/${fileName}`; // Optional folder for organization
 
-      if (error) {
+      const { error: uploadError } = await supabase.storage
+        .from("post-images") // ✅ Correct bucket for post images
+        .upload(filePath, imageFile);
+
+      if (uploadError) {
         toast.error("Failed to upload image");
+        console.error(uploadError.message);
         return;
       }
 
-      const { data: publicUrlData } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(fileName);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("post-images").getPublicUrl(filePath);
 
-      imageUrl = publicUrlData.publicUrl;
+      imageUrl = publicUrl;
     }
 
-    const user = (await supabase.auth.getUser()).data.user;
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      toast.error("You must be logged in to create a post.");
+      return;
+    }
 
     const { error: insertError } = await supabase.from("posts").insert([
       {
@@ -113,7 +124,7 @@ export default function NewPost() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="What do you want to say?"
-        />       
+        />
 
         <button type="submit">Submit</button>
       </form>

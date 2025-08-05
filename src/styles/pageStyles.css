@@ -33,6 +33,40 @@
   padding: 2rem;
 }
 
+/* ===== Sign Up ===== */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #4b5563;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.login-subtext {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.login-link {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
 /* ===== Home Page ===== */
 .home-page {
   padding: 2rem;
@@ -55,37 +89,10 @@
   margin: 0;
 }
 
-.search-bar {
-  padding: 0.5rem;
-  border-radius: 1rem;
-  border: 1px solid #ccc;
-  width: 40%;
-}
-
 .nav-links a {
   color: white;
   margin-left: 1rem;
   text-decoration: none;
-}
-
-.filter-buttons {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.filter-buttons button {
-  padding: 0.4rem 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: #ccc;
-  cursor: pointer;
-}
-
-.filter-buttons .active {
-  background: #14b8a6;
-  color: white;
-  font-weight: bold;
 }
 
 .post-feed {
@@ -123,4 +130,160 @@
   margin: var(--spacing-sm) 0;
   box-shadow: 0 1px 4px var(--card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* ===== Edit Post ===== */
+/* Layout */
+.edit-post-wrapper {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Headings */
+.edit-post-wrapper h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Form */
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Inputs */
+.edit-post-form input[type="text"],
+.edit-post-form textarea,
+.edit-post-form select {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* File upload */
+.edit-post-form input[type="file"] {
+  margin-top: 0.25rem;
+}
+
+/* Current image */
+.edit-post-image-preview {
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+}
+
+/* Button */
+.edit-post-form button {
+  background-color: #059669; /* Tailwind's green-600 */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-post-form button:hover {
+  background-color: #047857; /* green-700 */
+}
+
+/* Error */
+.edit-post-error {
+  color: #dc2626; /* red-600 */
+  font-weight: 500;
+}
+
+/* ===== Post Detail Page ===== */
+.post-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.post-author .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.post-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.post-category {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.post-content {
+  font-size: 1.05rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.post-image {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vote-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.vote-controls button {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.vote-controls button:hover {
+  background-color: #e2e8f0;
+}
+
+.skeleton-loader {
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 4rem;
+  color: #64748b;
+}
+
+/* ===== Comments Section ===== */
+.comment-form,
+.comment-list {
+  margin-top: 2rem;
 }

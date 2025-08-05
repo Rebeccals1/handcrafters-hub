@@ -84,7 +84,6 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 - React + Vite
 - Supabase (Database, Auth, Storage)
-- Tailwind CSS
 - React Router
 
 ---

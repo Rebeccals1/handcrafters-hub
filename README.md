@@ -67,7 +67,7 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 ## 📹 Walkthrough Video
 
-![Walkthrough Video](https://i.imgur.com/IFVmRk0.gif)  
+[Walkthrough Video](https://i.imgur.com/IFVmRk0.gif)  
 > Created with [ScreenToGif](https://www.screentogif.com/)
 
 ---

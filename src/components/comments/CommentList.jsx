@@ -50,20 +50,20 @@ export default function CommentList({ comments, userId, postId, onCommentAdded }
     }
   };
 
-  const renderComments = (comments, parentId = null) =>
+  const renderComments = (comments, parentId = null, level = 0) =>
     comments
       .filter(c => c.parent_comment_id === parentId)
       .map(c => (
-        <div key={c.id} className="comment">
+        <div key={c.id} className="comment" style={{ marginLeft: level * 20 }}>
           <img src={c.profiles?.avatar_url || '/default-avatar.png'} className="avatar" />
           <div className="comment-body">
             <div className="comment-author">{c.profiles?.name || 'Anonymous'}</div>
             <div className="comment-text">{c.content}</div>
             <div className="comment-timestamp">{new Date(c.created_at).toLocaleString()}</div>
             <div className="vote-controls">
-              <button onClick={() => handleVote(c.id, 'up')}>⬆️</button>
+              <button onClick={() => handleVote(c.id, 'up')}> ⬆ </button>
               <span>{votes[c.id]?.up || 0}</span>
-              <button onClick={() => handleVote(c.id, 'down')}>⬇️</button>
+              <button onClick={() => handleVote(c.id, 'down')}> ⬇ </button>
               <span>{votes[c.id]?.down || 0}</span>
             </div>
             {c.user_id === userId && (
@@ -84,7 +84,7 @@ export default function CommentList({ comments, userId, postId, onCommentAdded }
                 parentId={c.id}
               />
             )}
-            {renderComments(comments, c.id)}
+            {renderComments(comments, c.id, level + 1)}
           </div>
         </div>
       ));

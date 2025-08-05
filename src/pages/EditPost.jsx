@@ -75,6 +75,31 @@ const EditPost = () => {
     }
   }
 
+  // ✅ Handle image upload to Supabase Storage
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const fileExt = file.name.split('.').pop();
+    const filePath = `post-images/${Date.now()}.${fileExt}`; // Folder in bucket
+
+    const { error: uploadError } = await supabase.storage
+      .from("post-images") // ✅ Replace with your actual bucket name
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error("Image upload error:", uploadError.message);
+      setError("Failed to upload image");
+      return;
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("post-images").getPublicUrl(filePath);
+
+    setImageUrl(publicUrl);
+  }
+
   if (!post && !error) {
     return <div className="text-center mt-8 text-gray-500">Loading post data...</div>;
   }
@@ -113,6 +138,9 @@ const EditPost = () => {
             className="edit-post-image-preview"
           />
         )}
+
+        <label>Replace image:</label>
+        <input type="file" accept="image/*" onChange={handleImageUpload} />
 
         <select
           value={category}

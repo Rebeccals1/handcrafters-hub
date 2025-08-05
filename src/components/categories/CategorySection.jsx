@@ -4,10 +4,7 @@ export default function CategorySection({ category }) {
   const { name, post_category_contests = [], posts = [] } = category;
   const contest = post_category_contests[0];
 
-  // Sort posts by upvotes (descending) and get top 3
-  const sortedPosts = [...posts].sort((a, b) => b.upvotes - a.upvotes);
-  const topThreePosts = sortedPosts.slice(0, 3);
-  const winner = topThreePosts[0]; // Top upvoted post
+  const topThreePosts = posts.slice(0, 3); // Posts are already sorted in PostFeed
 
   return (
     <section className="category-section">
@@ -19,16 +16,24 @@ export default function CategorySection({ category }) {
             <p>{contest.description}</p>
             {contest.start_date && contest.end_date && (
               <p>
-                <strong>Duration:</strong> {new Date(contest.start_date).toLocaleDateString()} —{" "}
+                <strong>Duration:</strong>{" "}
+                {new Date(contest.start_date).toLocaleDateString()} —{" "}
                 {new Date(contest.end_date).toLocaleDateString()}
               </p>
             )}
           </div>
         )}
 
-        {winner && (
-          <div className="winner-announcement bg-green-100 p-3 rounded shadow-sm">
-            🏆 <strong>{winner.profiles?.name || "Unknown User"}</strong> is currently leading this category!
+        {topThreePosts.length > 0 && (
+          <div className="winner-announcement bg-green-100 p-3 rounded shadow-sm mt-2">
+            <h4 className="font-semibold mb-1">🏆 Top 3 Contributors:</h4>
+            <ol className="list-decimal list-inside space-y-1">
+              {topThreePosts.map((post) => (
+                <li key={post.id}>
+                  <strong>{post.profiles?.name || "Unknown User"}</strong> — {post.upvotes} upvotes
+                </li>
+              ))}
+            </ol>
           </div>
         )}
       </div>

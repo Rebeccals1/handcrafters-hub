@@ -262,17 +262,18 @@
 }
 
 .vote-controls button {
-  background-color: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  background-color: #ff8e77;
+  border: 1px solid #ff5e28;
   border-radius: 0.5rem;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   font-size: 0.95rem;
   transition: background-color 0.2s ease;
+  margin: 20px 0;
 }
 
 .vote-controls button:hover {
-  background-color: #e2e8f0;
+  background-color: hsl(12, 100%, 61%);
 }
 
 .skeleton-loader {

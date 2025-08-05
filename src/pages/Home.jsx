@@ -33,6 +33,7 @@ export default function Home() {
             image_url,
             created_at,
             upvotes,
+            comment_count,
             profiles (
               name,
               avatar_url

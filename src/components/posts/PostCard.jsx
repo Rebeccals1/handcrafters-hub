@@ -8,6 +8,7 @@ export default function PostCard({ post }) {
     content,
     created_at,
     upvotes = 0,
+    comment_count = 0, 
     profiles = {},
   } = post;
 
@@ -15,30 +16,22 @@ export default function PostCard({ post }) {
 
   return (
     <div className="post-card">
-      
-      <div className="post-meta">
-        <p className="post-time">
-          Posted {formatDistanceToNow(new Date(created_at), { addSuffix: true })}
-        </p>
-      </div>
-
+      Posted {formatDistanceToNow(new Date(created_at), { addSuffix: true })}
       <Link to={`/post/${id}`} className="post-title-link">
-      <div className="post-author-wrapper">
-        <span className="post-title-block">
-          <img
-            src={avatar_url || "/default-avatar.png"}
-            alt={name}
-            title={name}
-            className="avatar"
-          />
-          <h3 className="post-title">{title}</h3>
-        </span>
-        <p className="post-upvotes">{upvotes} upvotes</p>
-      </div>
+        <div className="post-author-wrapper">
+          <span className="post-title-block">
+            <img
+              src={avatar_url || "/default-avatar.png"}
+              alt={name}
+              title={name}
+              className="avatar"
+            />
+            <h3 className="post-title">{title}</h3>
+          </span>
+          <p className="post-upvotes">{upvotes} upvotes</p>
+        </div>
+        <p className="post-comments">🗨️ {comment_count} comments</p>
       </Link>
-
-      
-      
     </div>
   );
 }

@@ -5,6 +5,7 @@ import CommentForm from '../components/comments/CommentForm';
 import CommentList from '../components/comments/CommentList';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/pageStyles.css';
 
 const PostDetail = () => {
   const { userId } = useOutletContext();
@@ -104,16 +105,16 @@ const PostDetail = () => {
       </div>
 
       <h1 className="post-title">{post.title}</h1>
-      <p className="post-category">Category: {categoryName}</p>
+      <span className="post-category">Category: {categoryName}</span>
       <p className="post-content">{post.content}</p>
       {post.image_url && (
         <img src={post.image_url} alt="Post" className="post-image" />
       )}
 
       <div className="vote-controls" style={{ marginTop: '1rem' }}>
-        <button onClick={() => handleVote('up')}>⬆️ Upvote</button>
+        <button onClick={() => handleVote('up')}>⬆ Upvote</button>
         <span style={{ margin: '0 1rem' }}>{voteCount} votes</span>
-        <button onClick={() => handleVote('down')}>⬇️ Downvote</button>
+        <button onClick={() => handleVote('down')}>⬇ Downvote</button>
       </div>
 
       {post.user_id === userId && (

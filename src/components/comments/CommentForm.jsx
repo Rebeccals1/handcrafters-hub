@@ -1,7 +1,9 @@
+// components/comments/CommentForm.jsx
 import { useState } from 'react';
 import { supabase } from '../../utils/client';
+import { toast } from 'react-toastify';
 
-export default function CommentForm({ postId, onCommentAdded, userId }) {
+export default function CommentForm({ postId, onCommentAdded, userId, parentId = null }) {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -18,6 +20,7 @@ export default function CommentForm({ postId, onCommentAdded, userId }) {
           content,
           post_id: postId,
           user_id: userId,
+          parent_comment_id: parentId,
         },
       ])
       .select('*, profiles(name, avatar_url)')

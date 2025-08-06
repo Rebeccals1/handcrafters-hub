@@ -52,14 +52,14 @@ const PostDetail = () => {
     fetchData();
   }, [id]);
 
-  const handleCommentAdded = async (newComment) => {
+  const handleCommentAdded = (newComment) => {
     setComments((prev) => [...prev, newComment]);
     toast.success('Comment added!');
   };
 
   const handleVote = async (direction) => {
-    const newCount = direction === 'up' ? voteCount + 1 : voteCount - 1;
-    setVoteCount(newCount);
+    const newCount = direction === 'up' ? voteCount + 1 : Math.max(voteCount - 1, 0);
+    setVoteCount(newCount); // optimistic update
 
     const { error } = await supabase
       .from('posts')
@@ -111,12 +111,28 @@ const PostDetail = () => {
         <img src={post.image_url} alt="Post" className="post-image" />
       )}
 
-      <div className="vote-controls" style={{ marginTop: '1rem' }}>
-        <button onClick={() => handleVote('up')}>⬆ Upvote</button>
-        <span style={{ margin: '0 1rem' }}>{voteCount} votes</span>
-        <button onClick={() => handleVote('down')}>⬇ Downvote</button>
+      {/* ✅ Upvote/downvote section */}
+      <div className="vote-controls mt-4 flex items-center gap-4">
+        <button
+          className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded disabled:opacity-50"
+          onClick={() => handleVote('up')}
+          disabled={!userId}
+        >
+          ⬆ Upvote
+        </button>
+
+        <span className="font-semibold">{voteCount} vote{voteCount !== 1 ? 's' : ''}</span>
+
+        <button
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded disabled:opacity-50"
+          onClick={() => handleVote('down')}
+          disabled={!userId || voteCount <= 0}
+        >
+          ⬇ Downvote
+        </button>
       </div>
 
+      {/* Edit/Delete buttons */}
       {post.user_id === userId && (
         <div className="mt-4 flex gap-4">
           <button

@@ -3,7 +3,7 @@
 **Submitted by:** Rebecca Smith  
 **Total Time Spent:** 32+ hours  
 
-Handcrafter’s Hub is a community forum for crafters to share handmade projects, compete in contests, ask for help, and engage with fellow makers across categories like **Sewing & Textiles** and **Woodworking**. Users can create, edit, comment, and upvote posts in a clean, responsive interface.
+Handcrafter’s Hub is a community forum for crafters to share handmade projects, compete in contests, ask for help, and engage with fellow makers across categories like Sewing & Textiles and Woodworking. Users can create, edit, comment, and upvote posts in a clean, responsive interface.
 
 ---
 

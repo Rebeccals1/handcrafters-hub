@@ -1,4 +1,4 @@
-# Handcrafter’s Hub 🧵🪵
+# Handcrafter’s Hub
 
 **Submitted by:** Rebecca Smith  
 **Total Time Spent:** 32+ hours  
@@ -7,7 +7,7 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 ---
 
-## ✅ Required Features
+## Features
 
 - [x] **Post Creation Form**
   - Required: Post title
@@ -29,11 +29,6 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 - [x] **Post Editing and Deletion**
   - Users can edit and delete their own posts
-
----
-
-## 🌟 Optional Features Implemented
-
 - [x] **Pseudo-authentication**
   - Each user gets a random ID on app launch
   - Users can only edit/delete their own posts or comments
@@ -46,18 +41,7 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 ---
 
-## 🧠 Optional Features Not Yet Implemented
-
-- [ ] Reposting posts with threaded linking
-- [ ] UI customization (e.g. color schemes, feed display settings)
-- [ ] Additional post flags like "Question" or "Opinion"
-- [ ] Local image uploads
-- [ ] Web video embedding
-- [ ] Loading animations during fetch
-
----
-
-## ➕ Additional Features
+## Additional Features
 
 - Post sorting reorders category sections by newest or most popular
 - Supabase RLS policies and triggers securely control post and vote access
@@ -65,14 +49,14 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 ---
 
-## 📹 Walkthrough Video
+## Walkthrough Video
 
 [Walkthrough Video](https://i.imgur.com/IFVmRk0.gif)  
 > Created with [ScreenToGif](https://www.screentogif.com/)
 
 ---
 
-## 📝 Notes
+## Notes
 
 - Supabase Row-Level Security (RLS) required careful setup to allow voting without exposing edit access.
 - Nested relationships (`profiles`, `post_categories`) in Supabase required thoughtful data loading.
@@ -80,7 +64,7 @@ Handcrafter’s Hub is a community forum for crafters to share handmade projects
 
 ---
 
-## 🛠 Built With
+## Built With
 
 - React + Vite
 - Supabase (Database, Auth, Storage)
